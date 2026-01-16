@@ -1,0 +1,86 @@
+.footer {
+  background: linear-gradient(180deg, #020617, #01040f);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 28px 20px;
+  color: #9ca3af;
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.footer-copy {
+  font-size: 14px;
+}
+.footer-slogan {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.footer-copy strong {
+  color: white;
+}
+
+.footer-copy span {
+  color: #9ca3af;
+}
+
+/* SOCIALS */
+.footer-socials {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-socials a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-socials a svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.footer-socials a:hover {
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* WHATSAPP DESTACADO */
+.footer-socials .whatsapp {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.footer-socials .whatsapp:hover {
+  color: #4ade80;
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .footer-copy {
+    font-size: 13px;
+  }
+
+  .footer-socials {
+    gap: 16px;
+  }
+}

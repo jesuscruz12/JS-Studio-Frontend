@@ -1,0 +1,126 @@
+* {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.catalog-wrapper {
+  min-height: 100vh;
+  background: #020617;
+  color: white;
+  padding-top: var(--header-height); /* 👈 CLAVE */
+  padding-bottom: 60px;
+}
+.catalog-controls {
+  margin-top: 10px;
+}
+
+.catalog-wrapper::before {
+  content: "";
+  display: block;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.15),
+    transparent
+  );
+}
+
+.catalog-header {
+  padding: 40px 20px;
+  text-align: center;
+  background: linear-gradient(180deg, #020617, #0f172a);
+}
+
+.catalog-header h1 {
+  font-size: 32px;
+  margin: 0;
+}
+
+.catalog-header p {
+  color: #9ca3af;
+  margin: 8px 0 24px;
+}
+
+.catalog-controls {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.catalog-controls input,
+.catalog-controls select {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background: #020617;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  min-width: 220px;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+  padding: 40px;
+}
+
+.design-card {
+  background: #020617;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.25s ease;
+}
+
+.design-card:hover {
+  transform: translateY(-6px);
+}
+
+.design-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+.design-info {
+  padding: 16px;
+}
+
+.design-info h3 {
+  font-size: 16px;
+  margin: 0 0 6px;
+}
+
+.code {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.actions .copy {
+  background: #1f2933;
+  color: white;
+}
+
+.actions .whatsapp {
+  background: #22c55e;
+  color: black;
+}
