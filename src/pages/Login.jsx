@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ IMPORTANTE
 import api from "../api/axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -9,14 +10,23 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const navigate = useNavigate(); // ✅ HOOK DE REACT ROUTER
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
     try {
-      const res = await api.post("/auth/login", { email, password });
+      const res = await api.post("/auth/login", {
+        email,
+        password,
+      });
+
+      // 🔐 Guardar token
       localStorage.setItem("token", res.data.token);
-      window.location.href = "/admin";
+
+      // ✅ NAVEGACIÓN SPA (NO recarga la página)
+      navigate("/admin");
     } catch {
       setError("Credenciales incorrectas");
     }
