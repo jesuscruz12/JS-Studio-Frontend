@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import "../styles/admin.css";
+import "../styles/Admin.css";
 
 const CATEGORIES = [
   "Religioso",

@@ -1,5 +1,8 @@
 import { useState } from "react";
 import api from "../api/axios";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import "../styles/login.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,58 +14,52 @@ export default function Login() {
     setError("");
 
     try {
-      const res = await api.post("/auth/login", {
-        email,
-        password,
-      });
-
+      const res = await api.post("/auth/login", { email, password });
       localStorage.setItem("token", res.data.token);
-
       window.location.href = "/admin";
-    } catch (err) {
+    } catch {
       setError("Credenciales incorrectas");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-gray-800 p-8 rounded-lg w-80"
-      >
-        <h1 className="text-white text-2xl font-bold mb-6 text-center">
-          Admin Login
-        </h1>
+    <>
+      <Header />
 
-        {error && (
-          <p className="text-red-400 text-sm mb-4 text-center">{error}</p>
-        )}
+      <main className="login-wrapper">
+        <form className="login-card" onSubmit={handleSubmit}>
+          <h1>Panel Administrativo</h1>
+          <p className="login-subtitle">Acceso exclusivo · SJ Studio</p>
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full mb-3 px-3 py-2 rounded bg-gray-700 text-white outline-none"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          {error && <div className="login-error">{error}</div>}
 
-        <input
-          type="password"
-          placeholder="Contraseña"
-          className="w-full mb-4 px-3 py-2 rounded bg-gray-700 text-white outline-none"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <div className="login-field">
+            <label>Email</label>
+            <input
+              type="email"
+              placeholder="admin@sjstudio.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold"
-        >
-          Entrar
-        </button>
-      </form>
-    </div>
+          <div className="login-field">
+            <label>Contraseña</label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit">Entrar</button>
+        </form>
+      </main>
+
+      <Footer />
+    </>
   );
 }
