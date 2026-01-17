@@ -12,7 +12,7 @@ export default function Header() {
 
           <div className="brand-text">
             <h1>SJ Studio</h1>
-            <span>Diseños que se sienten</span>
+            <span>"Diseños que se sienten"</span>
           </div>
         </div>
 

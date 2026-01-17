@@ -9,7 +9,7 @@ export default function Footer() {
             © {new Date().getFullYear()} <strong>SJ Studio</strong>.  
             <span> Todos los derechos reservados.</span>
             <br />
-            <span className="footer-slogan">Diseños que se sienten</span>
+            <span className="footer-slogan">"Diseños que se sienten"</span>
         </p>
 
         <div className="footer-socials">
