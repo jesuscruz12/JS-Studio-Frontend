@@ -9,14 +9,14 @@ export default function Catalog() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Todos");
 
+  const [selectedDesign, setSelectedDesign] = useState(null);
+  const [activeImage, setActiveImage] = useState(null);
+
   useEffect(() => {
     api.get("/designs").then(res => setDesigns(res.data));
   }, []);
 
-  const categories = [
-    "Todos",
-    ...new Set(designs.map(d => d.category))
-  ];
+  const categories = ["Todos", ...new Set(designs.map(d => d.category))];
 
   const filtered = designs.filter(d =>
     (category === "Todos" || d.category === category) &&
@@ -24,12 +24,22 @@ export default function Catalog() {
       d.code.toLowerCase().includes(search.toLowerCase()))
   );
 
-  const sendWhatsApp = (code) => {
-    const msg = `Hola 👋 me interesa el diseño con código ${code}`;
+  const sendWhatsApp = (design) => {
+    const msg = `Hola 👋 me interesa el diseño "${design.name}" (${design.code}) por $${design.price} MXN`;
     window.open(
       `https://wa.me/528115873337?text=${encodeURIComponent(msg)}`,
       "_blank"
     );
+  };
+
+  const openDetails = (design) => {
+    setSelectedDesign(design);
+    setActiveImage(design.coverImage);
+  };
+
+  const closeDetails = () => {
+    setSelectedDesign(null);
+    setActiveImage(null);
   };
 
   return (
@@ -57,25 +67,39 @@ export default function Catalog() {
         <section className="catalog-grid">
           {filtered.map(d => (
             <div className="design-card" key={d._id}>
-              <img src={d.imageUrl} alt={d.name} />
+              <div
+                className="design-image"
+                onClick={() => openDetails(d)}
+              >
+                <img src={d.coverImage} alt={d.name} />
+              </div>
 
               <div className="design-info">
                 <h3>{d.name}</h3>
+                <p className="price">${d.price} MXN</p>
                 <span className="code">{d.code}</span>
 
+                {/* 🔥 ACCIONES CON JERARQUÍA */}
                 <div className="actions">
+                  <button
+                    className="whatsapp"
+                    onClick={() => sendWhatsApp(d)}
+                  >
+                    WhatsApp
+                  </button>
+
+                  <button
+                    className="details"
+                    onClick={() => openDetails(d)}
+                  >
+                    Ver detalles
+                  </button>
+
                   <button
                     className="copy"
                     onClick={() => navigator.clipboard.writeText(d.code)}
                   >
-                    Copiar código
-                  </button>
-
-                  <button
-                    className="whatsapp"
-                    onClick={() => sendWhatsApp(d.code)}
-                  >
-                    WhatsApp
+                    Copiar
                   </button>
                 </div>
               </div>
@@ -83,6 +107,55 @@ export default function Catalog() {
           ))}
         </section>
       </main>
+
+      {/* ===============================
+           MODAL (SIN CAMBIOS)
+      =============================== */}
+      {selectedDesign && (
+        <div className="modal-backdrop" onClick={closeDetails}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <button className="close" onClick={closeDetails}>✕</button>
+
+            <div className="modal-scroll">
+              <img
+                src={activeImage}
+                alt={selectedDesign.name}
+                className="modal-image"
+              />
+
+              <div className="modal-thumbs">
+                {[selectedDesign.coverImage, ...(selectedDesign.galleryImages || [])].map((img, i) => (
+                  <img
+                    key={i}
+                    src={img}
+                    className={activeImage === img ? "active" : ""}
+                    onClick={() => setActiveImage(img)}
+                  />
+                ))}
+              </div>
+
+              <div className="modal-body">
+                <h2>{selectedDesign.name}</h2>
+                <p className="price">${selectedDesign.price} MXN</p>
+
+                <ul className="details-list">
+                  <li><strong>Tipo:</strong> {selectedDesign.type}</li>
+                  <li><strong>Material:</strong> {selectedDesign.material}</li>
+                  <li><strong>Colores:</strong> {selectedDesign.colors.join(", ")}</li>
+                  <li><strong>Tallas:</strong> {selectedDesign.sizes.join(", ")}</li>
+                </ul>
+
+                <button
+                  className="whatsapp big"
+                  onClick={() => sendWhatsApp(selectedDesign)}
+                >
+                  Pedir por WhatsApp
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </>

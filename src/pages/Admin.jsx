@@ -20,10 +20,24 @@ const CATEGORIES = [
   "Vintage",
 ];
 
+const TYPES = ["Playera", "Sudadera", "Hoodie", "Tote bag"];
+const MATERIALS = ["Algodón", "Poliéster", "Algodón + Poliéster"];
+const COLORS = ["Blanco", "Negro", "Gris", "Rojo", "Azul"];
+const SIZES = ["CH", "M", "G", "XG"];
+
 export default function Admin() {
   const [name, setName] = useState("");
   const [category, setCategory] = useState(CATEGORIES[0]);
-  const [image, setImage] = useState(null);
+  const [price, setPrice] = useState("");
+  const [type, setType] = useState(TYPES[0]);
+  const [material, setMaterial] = useState(MATERIALS[0]);
+  const [colors, setColors] = useState([]);
+  const [sizes, setSizes] = useState([]);
+
+  // 🔹 IMÁGENES
+  const [coverImage, setCoverImage] = useState(null);          // catálogo
+  const [galleryImages, setGalleryImages] = useState([]);      // detalles
+
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
@@ -31,6 +45,14 @@ export default function Admin() {
   useEffect(() => {
     setCode(`SJ-${Date.now().toString().slice(-6)}`);
   }, []);
+
+  const toggleValue = (value, list, setList) => {
+    setList(
+      list.includes(value)
+        ? list.filter((v) => v !== value)
+        : [...list, value]
+    );
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,13 +63,31 @@ export default function Admin() {
     formData.append("name", name);
     formData.append("code", code);
     formData.append("category", category);
-    formData.append("image", image);
+    formData.append("price", price);
+    formData.append("type", type);
+    formData.append("material", material);
+    formData.append("colors", JSON.stringify(colors));
+    formData.append("sizes", JSON.stringify(sizes));
+
+    // 👇 imagen principal
+    formData.append("coverImage", coverImage);
+
+    // 👇 galería
+    for (let i = 0; i < galleryImages.length; i++) {
+      formData.append("galleryImages", galleryImages[i]);
+    }
 
     try {
       await api.post("/designs", formData);
       setMsg("success");
+
+      // reset
       setName("");
-      setImage(null);
+      setPrice("");
+      setColors([]);
+      setSizes([]);
+      setCoverImage(null);
+      setGalleryImages([]);
       setCode(`SJ-${Date.now().toString().slice(-6)}`);
     } catch {
       setMsg("error");
@@ -96,11 +136,18 @@ export default function Admin() {
             </div>
 
             <div className="field">
+              <label>Precio ($MXN)</label>
+              <input
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="field">
               <label>Categoría</label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
+              <select value={category} onChange={(e) => setCategory(e.target.value)}>
                 {CATEGORIES.map((cat) => (
                   <option key={cat}>{cat}</option>
                 ))}
@@ -108,12 +155,74 @@ export default function Admin() {
             </div>
 
             <div className="field">
-              <label>Imagen del diseño</label>
+              <label>Tipo</label>
+              <select value={type} onChange={(e) => setType(e.target.value)}>
+                {TYPES.map((t) => (
+                  <option key={t}>{t}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="field">
+              <label>Material</label>
+              <select value={material} onChange={(e) => setMaterial(e.target.value)}>
+                {MATERIALS.map((m) => (
+                  <option key={m}>{m}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="field">
+              <label>Colores disponibles</label>
+              <div className="checkbox-group">
+                {COLORS.map((c) => (
+                  <label key={c}>
+                    <input
+                      type="checkbox"
+                      checked={colors.includes(c)}
+                      onChange={() => toggleValue(c, colors, setColors)}
+                    />
+                    {c}
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="field">
+              <label>Tallas disponibles</label>
+              <div className="checkbox-group">
+                {SIZES.map((s) => (
+                  <label key={s}>
+                    <input
+                      type="checkbox"
+                      checked={sizes.includes(s)}
+                      onChange={() => toggleValue(s, sizes, setSizes)}
+                    />
+                    {s}
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* 👇 IMAGEN PRINCIPAL */}
+            <div className="field">
+              <label>Imagen principal (catálogo)</label>
               <input
                 type="file"
                 accept="image/*"
                 required
-                onChange={(e) => setImage(e.target.files[0])}
+                onChange={(e) => setCoverImage(e.target.files[0])}
+              />
+            </div>
+
+            {/* 👇 GALERÍA */}
+            <div className="field">
+              <label>Imágenes adicionales (galería)</label>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={(e) => setGalleryImages(e.target.files)}
               />
             </div>
 
