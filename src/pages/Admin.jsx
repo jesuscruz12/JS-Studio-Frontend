@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import "../styles/Admin.css";
 
 const CATEGORIES = [
@@ -55,63 +57,74 @@ export default function Admin() {
   };
 
   return (
-    <div className="admin-wrapper">
-      <div className="admin-card">
-        <header className="admin-header">
-          <h1>Panel Admin</h1>
-          <p>Gestión de diseños · SJ Studio</p>
-        </header>
+    <>
+      <Header />
 
-        {msg === "success" && (
-          <div className="alert success">✔ Diseño subido correctamente</div>
-        )}
-        {msg === "error" && (
-          <div className="alert error">✖ Error al subir diseño</div>
-        )}
+      <main className="admin-wrapper">
+        <div className="admin-card">
+          <header className="admin-header">
+            <h1>Panel Administrativo</h1>
+            <p>Gestión de diseños · SJ Studio</p>
+          </header>
 
-        <form onSubmit={handleSubmit} className="admin-form">
-          <div className="field">
-            <label>Nombre del diseño</label>
-            <input
-              placeholder="Ej. Playera San Judas"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
+          {msg === "success" && (
+            <div className="alert success">
+              ✔ Diseño subido correctamente
+            </div>
+          )}
 
-          <div className="field">
-            <label>Código</label>
-            <input value={code} disabled />
-          </div>
+          {msg === "error" && (
+            <div className="alert error">
+              ✖ Error al subir diseño
+            </div>
+          )}
 
-          <div className="field">
-            <label>Categoría</label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              {CATEGORIES.map((cat) => (
-                <option key={cat}>{cat}</option>
-              ))}
-            </select>
-          </div>
+          <form onSubmit={handleSubmit} className="admin-form">
+            <div className="field">
+              <label>Nombre del diseño</label>
+              <input
+                placeholder="Ej. Playera San Judas"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
 
-          <div className="field">
-            <label>Imagen del diseño</label>
-            <input
-              type="file"
-              accept="image/*"
-              required
-              onChange={(e) => setImage(e.target.files[0])}
-            />
-          </div>
+            <div className="field">
+              <label>Código</label>
+              <input value={code} disabled />
+            </div>
 
-          <button disabled={loading}>
-            {loading ? "Subiendo..." : "Subir diseño"}
-          </button>
-        </form>
-      </div>
-    </div>
+            <div className="field">
+              <label>Categoría</label>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                {CATEGORIES.map((cat) => (
+                  <option key={cat}>{cat}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="field">
+              <label>Imagen del diseño</label>
+              <input
+                type="file"
+                accept="image/*"
+                required
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+            </div>
+
+            <button disabled={loading}>
+              {loading ? "Subiendo..." : "Subir diseño"}
+            </button>
+          </form>
+        </div>
+      </main>
+
+      <Footer />
+    </>
   );
 }
