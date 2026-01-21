@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 import Catalog from "./pages/Catalog";
 import ProtectedRoute from "./components/ProtectedRoute";
+import DesignsList from "./pages/DesignsList";
 
 function App() {
   return (
@@ -12,13 +13,14 @@ function App() {
 
       {/* LOGIN ADMIN */}
       <Route path="/login" element={<Login />} />
+      <Route path="/admin/designs/new" element={<Admin />} />
 
       {/* PANEL ADMIN (PROTEGIDO) */}
       <Route
-        path="/admin"
+        path="/DesignsList"
         element={
           <ProtectedRoute>
-            <Admin />
+            <DesignsList />
           </ProtectedRoute>
         }
       />

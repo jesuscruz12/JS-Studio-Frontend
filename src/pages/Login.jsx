@@ -26,7 +26,7 @@ export default function Login() {
       localStorage.setItem("token", res.data.token);
 
       // ✅ NAVEGACIÓN SPA (NO recarga la página)
-      navigate("/admin");
+      navigate("/DesignsList");
     } catch {
       setError("Credenciales incorrectas");
     }

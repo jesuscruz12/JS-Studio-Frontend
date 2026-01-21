@@ -6,7 +6,7 @@ export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const isAdmin = location.pathname.startsWith("/admin");
+  const isAdmin = location.pathname.startsWith("/DesignsList");
 
   const logout = () => {
     localStorage.removeItem("token");

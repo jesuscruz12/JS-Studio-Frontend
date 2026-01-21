@@ -8,6 +8,7 @@ export default function Catalog() {
   const [designs, setDesigns] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Todos");
+  const [gender, setGender] = useState("Todos"); // 🆕 SEXO
 
   const [selectedDesign, setSelectedDesign] = useState(null);
   const [activeImage, setActiveImage] = useState(null);
@@ -17,15 +18,19 @@ export default function Catalog() {
   }, []);
 
   const categories = ["Todos", ...new Set(designs.map(d => d.category))];
+  const genders = ["Todos", ...new Set(designs.map(d => d.gender).filter(Boolean))];
 
   const filtered = designs.filter(d =>
     (category === "Todos" || d.category === category) &&
-    (d.name.toLowerCase().includes(search.toLowerCase()) ||
-      d.code.toLowerCase().includes(search.toLowerCase()))
+    (gender === "Todos" || d.gender === gender) &&
+    (
+      d.name.toLowerCase().includes(search.toLowerCase()) ||
+      d.code.toLowerCase().includes(search.toLowerCase())
+    )
   );
 
   const sendWhatsApp = (design) => {
-    const msg = `Hola 👋 me interesa el diseño "${design.name}" (${design.code}) por $${design.price} MXN`;
+    const msg = `Hola 👋 me interesa el diseño "${design.name}" (${design.code}) para ${design.gender} por $${design.price} MXN`;
     window.open(
       `https://wa.me/528115873337?text=${encodeURIComponent(msg)}`,
       "_blank"
@@ -62,6 +67,16 @@ export default function Catalog() {
               <option key={c}>{c}</option>
             ))}
           </select>
+
+          {/* 🆕 FILTRO POR SEXO */}
+          <select
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+          >
+            {genders.map(g => (
+              <option key={g}>{g}</option>
+            ))}
+          </select>
         </div>
 
         <section className="catalog-grid">
@@ -79,7 +94,9 @@ export default function Catalog() {
                 <p className="price">${d.price} MXN</p>
                 <span className="code">{d.code}</span>
 
-                {/* 🔥 ACCIONES CON JERARQUÍA */}
+                {/* 🆕 SEXO DISCRETO */}
+                <span className="gender">{d.gender}</span>
+
                 <div className="actions">
                   <button
                     className="whatsapp"
@@ -109,7 +126,7 @@ export default function Catalog() {
       </main>
 
       {/* ===============================
-           MODAL (SIN CAMBIOS)
+           MODAL
       =============================== */}
       {selectedDesign && (
         <div className="modal-backdrop" onClick={closeDetails}>
@@ -140,6 +157,7 @@ export default function Catalog() {
 
                 <ul className="details-list">
                   <li><strong>Tipo:</strong> {selectedDesign.type}</li>
+                  <li><strong>Sexo:</strong> {selectedDesign.gender}</li>
                   <li><strong>Material:</strong> {selectedDesign.material}</li>
                   <li><strong>Colores:</strong> {selectedDesign.colors.join(", ")}</li>
                   <li><strong>Tallas:</strong> {selectedDesign.sizes.join(", ")}</li>

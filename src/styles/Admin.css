@@ -191,3 +191,293 @@
     font-size: 20px;
   }
 }
+
+/* ======================================================
+   🔽 🔽 🔽  CRUD – LISTADO / FILTROS / TABLA  🔽 🔽 🔽
+====================================================== */
+
+/* HEADER CON BOTÓN CREAR */
+.admin-header .btn-primary {
+  margin-top: 14px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #ecfdf5;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.admin-header .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(34, 197, 94, 0.45);
+}
+
+/* FILTROS */
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.filters input,
+.filters select {
+  background: #020617;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #e5e7eb;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filters input:focus,
+.filters select:focus {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
+}
+
+/* TABLA */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(2, 6, 23, 0.6);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.admin-table thead {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 14px 12px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.admin-table th {
+  color: #93c5fd;
+  font-weight: 600;
+}
+
+.admin-table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.2s ease;
+}
+
+.admin-table tbody tr:hover {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.admin-table img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ACCIONES */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e5e7eb;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+}
+
+.actions button:hover {
+  background: rgba(59, 130, 246, 0.25);
+  border-color: #3b82f6;
+}
+
+/* BOTONES ESPECIALES */
+.actions .delete {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.35);
+  color: #f87171;
+}
+
+.actions .delete:hover {
+  background: rgba(239, 68, 68, 0.3);
+}
+
+.actions .restore {
+  background: rgba(34, 197, 94, 0.15);
+  border-color: rgba(34, 197, 94, 0.35);
+  color: #4ade80;
+}
+
+.actions .restore:hover {
+  background: rgba(34, 197, 94, 0.3);
+}
+
+/* BADGES (SEXO / ESTADO) */
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.badge.hombre {
+  background: rgba(59, 130, 246, 0.25);
+  color: #93c5fd;
+}
+
+.badge.mujer {
+  background: rgba(236, 72, 153, 0.25);
+  color: #f9a8d4;
+}
+
+.badge.unisex {
+  background: rgba(168, 85, 247, 0.25);
+  color: #d8b4fe;
+}
+
+.badge.inactive {
+  background: rgba(239, 68, 68, 0.25);
+  color: #fca5a5;
+}
+
+/* RESPONSIVE – TABLA A TARJETAS */
+@media (max-width: 768px) {
+  .admin-table thead {
+    display: none;
+  }
+
+  .admin-table tr {
+    display: block;
+    margin-bottom: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    padding: 12px;
+  }
+
+  .admin-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+  }
+
+  .admin-table td::before {
+    content: attr(data-label);
+    color: #9ca3af;
+    font-weight: 600;
+  }
+}
+
+/* ======================================================
+   BOTÓN REGRESAR
+====================================================== */
+.btn-secondary {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e5e7eb;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(59, 130, 246, 0.25);
+  border-color: #3b82f6;
+  transform: translateY(-1px);
+}
+
+/* ======================================================
+   BOTÓN PAPELERA
+====================================================== */
+.btn-trash {
+  margin-top: 14px; /* ✅ MISMA ALTURA QUE CREAR */
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-trash:hover {
+  background: rgba(239, 68, 68, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Contenedor de las miniaturas */
+.gallery-preview {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+/* La caja de cada imagen individual */
+.img-box {
+  position: relative; /* Indispensable para que el botón sepa dónde ubicarse */
+  width: 90px;
+  height: 90px;
+  /* Opcional: una sombra suave para que destaque del fondo oscuro */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+}
+
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Evita que la imagen se estire feo */
+  border-radius: 12px;
+  display: block; /* Elimina espacios fantasma debajo de la imagen */
+}
+
+/* El botón de eliminar (X) */
+.img-box .remove {
+  position: absolute;
+  top: -30px;    /* Un poquito más afuera para que no tape tanto la foto */
+  right: -8px;
+  
+  background: #ef4444;
+  color: white;
+  border: 2px solid white; /* ✨ Nuevo: Borde blanco para que resalte más */
+  border-radius: 50%;
+  
+  width: 24px;  /* Un pelín más grande para el dedo/mouse */
+  height: 24px;
+  
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  
+  /* ✨ Nuevo: Centrado perfecto de la X usando Flexbox */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0; /* Reset de botones por defecto */
+  
+  transition: all 0.2s ease; /* Suavidad al pasar el mouse */
+}
+
+/* ✨ Nuevo: Efecto al pasar el mouse */
+.img-box .remove:hover {
+  background: #dc2626; /* Un rojo más oscuro */
+  transform: scale(1.1); /* Crece un poquito */
+}
