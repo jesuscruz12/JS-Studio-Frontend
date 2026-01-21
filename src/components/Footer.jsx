@@ -16,7 +16,7 @@ export default function Footer() {
 
           {/* FACEBOOK */}
           <a
-            href="https://facebook.com/tupagina"
+            href="https://www.facebook.com/profile.php?id=61586774580519"
             target="_blank"
             rel="noreferrer"
             aria-label="Facebook"
