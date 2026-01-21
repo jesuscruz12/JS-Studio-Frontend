@@ -201,42 +201,6 @@
 }
 
 /* ===============================
-   RESPONSIVE FINO
-=============================== */
-@media (max-width: 1024px) {
-  .catalog-grid {
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .catalog-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    padding: 20px;
-    gap: 16px;
-  }
-
-  .design-image img {
-    height: 170px;
-  }
-}
-
-@media (max-width: 480px) {
-  .catalog-controls input,
-  .catalog-controls select {
-    width: 100%;
-  }
-
-  .design-card {
-    max-width: 100%;
-  }
-
-  .design-image img {
-    height: 160px;
-  }
-}
-
-/* ===============================
    MODAL (❌ SIN CAMBIOS)
 =============================== */
 

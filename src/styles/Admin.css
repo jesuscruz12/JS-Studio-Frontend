@@ -15,6 +15,17 @@
 /* TARJETA */
 .admin-card {
   width: 100%;
+  max-width: 950px;
+  background: rgba(17, 24, 39, 0.88);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 32px;
+  color: #fff;
+}
+.admin-card1 {
+  width: 100%;
   max-width: 620px;
   background: rgba(17, 24, 39, 0.88);
   backdrop-filter: blur(14px);
@@ -24,7 +35,6 @@
   padding: 32px;
   color: #fff;
 }
-
 /* HEADER */
 .admin-header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -262,7 +272,7 @@
 
 .admin-table th {
   color: #93c5fd;
-  font-weight: 600;
+  font-weight: 1000;
 }
 
 .admin-table tbody tr {

@@ -203,7 +203,7 @@ export default function Admin() {
       <Header />
 
       <main className="admin-wrapper">
-        <div className="admin-card">
+        <div className="admin-card1">
           <header className="admin-header">
             <div>
               <h1>{isEdit ? "Editar diseño" : "Crear diseño"}</h1>
