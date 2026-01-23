@@ -491,3 +491,10 @@
   background: #dc2626; /* Un rojo más oscuro */
   transform: scale(1.1); /* Crece un poquito */
 }
+
+@media (max-width: 768px) {
+  .admin-table img {
+    width: 64px;
+    height: 64px;
+  }
+}

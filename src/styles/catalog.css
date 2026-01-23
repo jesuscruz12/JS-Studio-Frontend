@@ -339,15 +339,23 @@
 }
 
 /* Colores automáticos según sexo */
+/* Iconos según sexo */
 .design-info .gender::before {
   content: "👕 ";
 }
 
-.design-info .gender:where(:contains("Mujer"))::before {
+/* Mujer */
+.design-info .gender.mujer::before {
   content: "👚 ";
 }
 
-.design-info .gender:where(:contains("Unisex"))::before {
+/* Hombre */
+.design-info .gender.hombre::before {
+  content: "👕 ";
+}
+
+/* Unisex */
+.design-info .gender.unisex::before {
   content: "⚧ ";
 }
 
@@ -363,4 +371,21 @@
   background-position: right 14px center;
   background-size: 12px;
   padding-right: 38px;
+}
+
+.catalog-controls {
+  align-items: center;
+}
+
+
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter label {
+  font-size: 13px;
+  color: #9ca3af;
+  white-space: nowrap;
 }

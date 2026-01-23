@@ -14,7 +14,15 @@ export default function Catalog() {
   const [activeImage, setActiveImage] = useState(null);
 
   useEffect(() => {
-    api.get("/designs").then(res => setDesigns(res.data));
+    const fetchDesigns = () => {
+      api.get("/designs").then(res => setDesigns(res.data));
+    };
+
+    fetchDesigns(); // carga inicial
+
+    const interval = setInterval(fetchDesigns, 5000); // cada 5 segundos
+
+    return () => clearInterval(interval);
   }, []);
 
   const categories = ["Todos", ...new Set(designs.map(d => d.category))];
@@ -59,24 +67,30 @@ export default function Catalog() {
             onChange={(e) => setSearch(e.target.value)}
           />
 
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            {categories.map(c => (
-              <option key={c}>{c}</option>
-            ))}
-          </select>
+          <div className="filter">
+            <label>Categoría:</label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              {categories.map(c => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+          </div>
 
-          {/* 🆕 FILTRO POR SEXO */}
-          <select
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-          >
-            {genders.map(g => (
-              <option key={g}>{g}</option>
-            ))}
-          </select>
+          <div className="filter">
+            <label>Sexo:</label>
+            <select
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+            >
+              {genders.map(g => (
+                <option key={g} value={g}>{g}</option>
+              ))}
+            </select>
+          </div>
+
         </div>
 
         <section className="catalog-grid">
@@ -95,7 +109,9 @@ export default function Catalog() {
                 <span className="code">{d.code}</span>
 
                 {/* 🆕 SEXO DISCRETO */}
-                <span className="gender">{d.gender}</span>
+                <span className={`gender ${d.gender?.toLowerCase()}`}>
+                  {d.gender}
+                </span>
 
                 <div className="actions">
                   <button

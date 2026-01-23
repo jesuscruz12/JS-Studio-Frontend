@@ -202,6 +202,16 @@ export default function DesignsList() {
     loadDesigns();
   };
 
+  const categories = [
+    "Todas",
+    ...new Set(designs.map(d => d.category).filter(Boolean))
+  ];
+
+  const genders = [
+    "Todos",
+    ...new Set(designs.map(d => d.gender).filter(Boolean))
+  ];
+
   return (
     <>
       <Header />
@@ -241,17 +251,20 @@ export default function DesignsList() {
 
             <select onChange={(e) => setCategory(e.target.value)}>
               <option value="">Categoría</option>
-              <option>Religioso</option>
-              <option>Anime</option>
-              <option>Frases</option>
-              <option>Deportivo</option>
+              {categories.map(c => (
+                <option key={c} value={c === "Todas" ? "" : c}>
+                  {c}
+                </option>
+              ))}
             </select>
 
             <select onChange={(e) => setGender(e.target.value)}>
               <option value="">Sexo</option>
-              <option>Hombre</option>
-              <option>Mujer</option>
-              <option>Unisex</option>
+              {genders.map(g => (
+                <option key={g} value={g === "Todos" ? "" : g}>
+                  {g}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -282,15 +295,20 @@ export default function DesignsList() {
                         onClick={() => viewDetails(d)}
                       />
                     </td>
-                    <td>{d.name}</td>
-                    <td>
+                    <td data-label="Nombre:">{d.name}</td>
+
+                    <td data-label="Sexo:">
                       <span className={`badge ${d.gender?.toLowerCase()}`}>
                         {d.gender}
                       </span>
                     </td>
-                    <td>{d.category}</td>
-                    <td>${d.price}</td>
-                    <td className="actions">
+
+                    <td data-label="Categoría:">{d.category}</td>
+
+                    <td data-label="Precio:">${d.price}</td>
+
+                    <td data-label="Acciones:" className="actions">
+
                       {d.active ? (
                         <>
                           {/* ✏️ EDITAR (REUTILIZA ADMIN) */}

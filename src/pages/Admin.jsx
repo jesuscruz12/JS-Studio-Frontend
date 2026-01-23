@@ -415,15 +415,14 @@ export default function Admin() {
                 }
               </button>
               
-              {isEdit && (
-                <button
-                  type="button"
-                  className="btn-secondary"
-                  onClick={handleCancel}
-                >
-                  Cancelar
-                </button>
-              )}
+              <button
+                type="button"
+                className="btn-secondary"
+                onClick={handleCancel}
+              >
+                {isEdit ? "Cancelar" : "Regresar"}
+              </button>
+
             </div>
 
           </form>
